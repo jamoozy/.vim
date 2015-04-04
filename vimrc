@@ -10,7 +10,7 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
 Plugin 'tpope/vim-fugitive'
-Plugin 'davidhalter/jedi-vim'
+"Plugin 'davidhalter/jedi-vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'git://git.wincent.com/command-t.git'
 Plugin 'kien/ctrlp.vim'
@@ -18,8 +18,8 @@ Plugin 'tmhedberg/SimpylFold'
 Plugin 'bling/vim-airline'
 Plugin 'chriskempson/base16-vim'
 Plugin 'sjl/badwolf'
-Plugin 'tpope/vim-sensible'
-Plugin 'xolox/vim-misc'
+Plugin 'tpope/vim-sensible'  " ?
+Plugin 'xolox/vim-misc'  " ?
 Plugin 'xolox/vim-easytags'
 Plugin 'majutsushi/tagbar'
 Plugin 'vinitkumar/vim-tomorrow-theme'
@@ -30,20 +30,21 @@ Plugin 'mattn/webapi-vim'
 Plugin 'mattn/gist-vim'
 
 """"""""""""""""""""""""""""""
-" vim-powerline symbols
-let g:airline_theme             = 'badwolf'
-let g:airline_enable_branch     = 1
-let g:airline_enable_syntastic  = 1
+if has("gui_running")
+  " vim-powerline symbols
+  let g:airline_theme             = 'badwolf'
+  let g:airline_enable_branch     = 1
+  let g:airline_enable_syntastic  = 1
 
-" vim-powerline symbols
-let g:airline_left_sep          = '⮀'
-let g:airline_left_alt_sep      = '⮁'
-let g:airline_right_sep         = '⮂'
-let g:airline_right_alt_sep     = '⮃'
-let g:airline_branch_prefix     = '⭠'
-let g:airline_readonly_symbol   = '⭤'
-let g:airline_linecolumn_prefix = '⭡'
-"
+  " vim-powerline symbols
+  let g:airline_left_sep          = '⮀'
+  let g:airline_left_alt_sep      = '⮁'
+  let g:airline_right_sep         = '⮂'
+  let g:airline_right_alt_sep     = '⮃'
+  let g:airline_branch_prefix     = '⭠'
+  let g:airline_readonly_symbol   = '⭤'
+  let g:airline_linecolumn_prefix = '⭡'
+endif
 
 "tagbar related settings
 set tags=./tags;,~/.vimtags
@@ -117,7 +118,6 @@ let g:DoxygenToolkit_blockFooter="---------------------------------"
 let g:DoxygenToolkit_authorName="Vinit Kumar"
 
 "Nerdtree
-nmap <C-u> :NERDTreeToggle<CR>
 let NERDTreeIgnore = ['\.pyc$']
 
 " All of your Plugins must be added before the following line
@@ -145,7 +145,8 @@ set autoread
 set backspace=indent,eol,start  " allow backspacing over everything in insert mode
 set cindent
 set colorcolumn=86              " mark col 86
-set cursorline                  " Highlight current line
+"set cursorcolumn                " Highlight current column
+"set cursorline                  " Highlight current line
 set diffopt+=iwhite             " Ignore whitespace changes (focus on code changes)
 set diffopt=filler              " Add vertical spaces to keep right and left aligned
 set encoding=utf-8 nobomb       " BOM often causes trouble
@@ -155,7 +156,6 @@ set foldcolumn=4                " Column to show folds
 set foldlevel=2
 set foldlevelstart=2            " Sets `foldlevel` when editing a new buffer
 set foldmethod=indent           " Markers are used to specify folds.
-set foldnestmax=3               " Set max fold nesting level
 set formatoptions=qrn1
 set guifont=Monospace\ 10
 set hidden              " When a buffer is brought to foreground, remember undo history and marks.
@@ -192,7 +192,6 @@ syntax on
 set backspace=indent,eol,start  " Backspace for dummies
 set foldenable                  " Auto fold code
 set hlsearch                    " Highlight search terms
-set ignorecase                  " Case insensitive search
 set incsearch                   " Find as you type search
 set linespace=0                 " No extra spaces between rows
 set list
@@ -225,9 +224,6 @@ filetype plugin indent on
 augroup vimrcEx
     au!
 
-    " For all text files set 'textwidth' to 78 characters.
-    autocmd FileType text set textwidth=85
-
     " When editing a file, always jump to the last known cursor position.
     " Don't do it when the position is invalid or when inside an event handler
     " (happens when dropping a file on gvim).
@@ -243,8 +239,10 @@ if has("gui_running")
   colorscheme darkocean
   let g:colors_name="darkocean"
   highlight Folded guibg=darkgreen guifg=grey
-  set columns=90
-  set lines=53
+
+  " Fits my MacVim perfectly at Twice.
+  set columns=181
+  set lines=88
 endif
 
 
@@ -280,5 +278,6 @@ augroup END
 au BufRead,BufNewFile *.jqt    set ft=qml tw=0
 au BufRead,BufNewFile *.htmlmk set ft=mako
 
-set swapfile
-set dir=~/.tmp
+"set swapfile
+set dir=~/.vim/.tmp
+cd twicevm/twice-web-root/twiceweb
