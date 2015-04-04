@@ -10,7 +10,6 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
 Plugin 'tpope/vim-fugitive'
-"Plugin 'davidhalter/jedi-vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'git://git.wincent.com/command-t.git'
 Plugin 'kien/ctrlp.vim'
@@ -144,9 +143,6 @@ set autoindent                  " always set autoindenting on
 set autoread
 set backspace=indent,eol,start  " allow backspacing over everything in insert mode
 set cindent
-set colorcolumn=86              " mark col 86
-"set cursorcolumn                " Highlight current column
-"set cursorline                  " Highlight current line
 set diffopt+=iwhite             " Ignore whitespace changes (focus on code changes)
 set diffopt=filler              " Add vertical spaces to keep right and left aligned
 set encoding=utf-8 nobomb       " BOM often causes trouble
@@ -170,15 +166,15 @@ set noshowmode
 set nostartofline
 set report=0            " Show all changes.
 set ruler               " Show the cursor position all the time
-set shiftwidth=4        " The # of spaces for indenting.
+set shiftwidth=2        " The # of spaces for indenting.
 set shortmess=I         " Don't show the intro message when starting vim.
 set showcmd             " display incomplete commands
 set showmode            " Show the current mode.
 set showtabline=2       " Always show tab bar.
 set smarttab            " At start of line, <Tab> inserts shiftwidth spaces, <Bs> deletes shiftwidth spaces.
-set softtabstop=4
+set softtabstop=2
 set spell spelllang=en_us,de
-set tabstop=4
+set tabstop=2
 set textwidth=85
 set title                   " Show the filename in the window titlebar.
 set ttyfast                 " Send more characters at a given time.
@@ -233,9 +229,9 @@ augroup vimrcEx
     \ endif
 augroup END
 
-" Only use darkocean for gvim.
 set background=dark
 if has("gui_running")
+  " Only use darkocean for gvim.
   colorscheme darkocean
   let g:colors_name="darkocean"
   highlight Folded guibg=darkgreen guifg=grey
@@ -243,6 +239,9 @@ if has("gui_running")
   " Fits my MacVim perfectly at Twice.
   set columns=181
   set lines=88
+else
+  " Only enable highlighted cursor line for terminal vim.
+  set cursorline
 endif
 
 
@@ -265,6 +264,9 @@ au BufRead,BufNewFile *.dart set ft=dart
 au BufRead,BufNewFile *.log  set nospell
 au BufRead,BufNewFile *.txt  set tw=0
 
+au BufRead,BufNewFile *.jqt    set ft=qml tw=0
+au BufRead,BufNewFile *.htmlmk set ft=mako
+
 
 " 'Highlight' text in light gray when past tw.
 augroup vimrc_autocmds
@@ -274,10 +276,15 @@ augroup vimrc_autocmds
   autocmd BufEnter .*\.\(tex\)\@! match OverLength /\%81v.*/
 augroup END
 
-" Twice-specific:
-au BufRead,BufNewFile *.jqt    set ft=qml tw=0
-au BufRead,BufNewFile *.htmlmk set ft=mako
 
-"set swapfile
-set dir=~/.vim/.tmp
+" --------------------
+" Twice-specific:
+" --------------------
+
+set colorcolumn=86          " mark col 86
+set dir=~/.vim/.tmp         "set swapfile
+set shiftwidth=4
+set softtabstop=4
+set tabstop=4
+
 cd twicevm/twice-web-root/twiceweb
