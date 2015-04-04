@@ -143,6 +143,7 @@ set autoindent                  " always set autoindenting on
 set autoread
 set backspace=indent,eol,start  " allow backspacing over everything in insert mode
 set cindent
+set colorcolumn=81
 set diffopt+=iwhite             " Ignore whitespace changes (focus on code changes)
 set diffopt=filler              " Add vertical spaces to keep right and left aligned
 set encoding=utf-8 nobomb       " BOM often causes trouble
@@ -159,6 +160,7 @@ set history=500         " keep 500 lines of command line history
 set laststatus=2        " Always show status line
 set linebreak           " So that wrapping breaks at words, not just 'wherever'
 set magic               " Enable extended regexes.
+set mouse=a
 set nobackup            " do not keep a backup file, use versions instead
 set nocompatible        " (Also above).
 set noerrorbells        " Disable error bells.
@@ -181,7 +183,6 @@ set ttyfast                 " Send more characters at a given time.
 set wildchar=<TAB>          " Character for CLI expansion (TAB-completion).
 set wildmenu                " Hitting TAB in command mode will show possible completions above command line.
 set wrap
-set mouse=a
 syntax on
 
 " Whitespace
@@ -250,21 +251,21 @@ au BufRead,BufNewFile *.lol  set ft=lolcode
 au BufRead,BufNewFile *.lcm  set ft=c
 au BufRead,BufNewFile *.ss   set ft=ss
 
-au BufRead,BufNewFile *.tex  set ft=tex tw=0
-au BufRead,BufNewFile *.bib  set tw=0 nospell
+au BufRead,BufNewFile *.tex  set ft=tex tw=0 cc=0
+au BufRead,BufNewFile *.bib  set nospell tw=0 cc=0
 
 au BufRead,BufNewFile *.sb   set ft=c
 
 au BufRead,BufNewFile *.gp   set ft=gnuplot
-au BufRead,BufNewFile *.dat  set ts=8 sw=8 noet tw=0
+au BufRead,BufNewFile *.dat  set ts=8 sw=8 noet tw=0 cc=0
 
 au BufRead,BufNewFile *.go   set ft=go noet
 au BufRead,BufNewFile *.dart set ft=dart
 
 au BufRead,BufNewFile *.log  set nospell
-au BufRead,BufNewFile *.txt  set tw=0
+au BufRead,BufNewFile *.txt  set tw=0 cc=0
 
-au BufRead,BufNewFile *.jqt    set ft=qml tw=0
+au BufRead,BufNewFile *.jqt    set ft=qml tw=0 cc=0
 au BufRead,BufNewFile *.htmlmk set ft=mako
 
 
@@ -275,16 +276,3 @@ augroup vimrc_autocmds
   autocmd BufEnter .*\.\(tex\)\@! highlight OverLength ctermbg=darkgrey guibg=#592929
   autocmd BufEnter .*\.\(tex\)\@! match OverLength /\%81v.*/
 augroup END
-
-
-" --------------------
-" Twice-specific:
-" --------------------
-
-set colorcolumn=86          " mark col 86
-set dir=~/.vim/.tmp         "set swapfile
-set shiftwidth=4
-set softtabstop=4
-set tabstop=4
-
-cd twicevm/twice-web-root/twiceweb
