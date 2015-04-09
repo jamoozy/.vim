@@ -154,7 +154,7 @@ set foldlevel=2
 set foldlevelstart=2            " Sets `foldlevel` when editing a new buffer
 set foldmethod=indent           " Markers are used to specify folds.
 set formatoptions=qrn1
-set guifont=Monospace\ 10
+set guifont=Monospace\ 9
 set hidden              " When a buffer is brought to foreground, remember undo history and marks.
 set history=500         " keep 500 lines of command line history
 set laststatus=2        " Always show status line
