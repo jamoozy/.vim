@@ -27,22 +27,23 @@ Plugin 'rizzatti/dash.vim'
 Plugin 'Ack.vim'
 Plugin 'mattn/webapi-vim'
 Plugin 'mattn/gist-vim'
+Plugin 'altercation/vim-colors-solarized'
 
 """"""""""""""""""""""""""""""
 if has("gui_running")
   " vim-powerline symbols
-  let g:airline_theme             = 'badwolf'
-  let g:airline_enable_branch     = 1
-  let g:airline_enable_syntastic  = 1
+  let g:airline_theme                        = 'badwolf'
+  let g:airline#extensions#branch#enabled    = 1
+  let g:airline#extensions#syntastic#enabled = 1
 
   " vim-powerline symbols
-  let g:airline_left_sep          = '⮀'
-  let g:airline_left_alt_sep      = '⮁'
-  let g:airline_right_sep         = '⮂'
-  let g:airline_right_alt_sep     = '⮃'
-  let g:airline_branch_prefix     = '⭠'
-  let g:airline_readonly_symbol   = '⭤'
-  let g:airline_linecolumn_prefix = '⭡'
+  let g:airline_left_sep          = '['
+  let g:airline_left_alt_sep      = '['
+  let g:airline_right_sep         = ']'
+  let g:airline_right_alt_sep     = ']'
+  let g:airline_branch_prefix     = '+'
+  let g:airline_readonly_symbol   = '!'
+  let g:airline_linecolumn_prefix = '-'
 endif
 
 "tagbar related settings
@@ -53,21 +54,6 @@ let g:easytags_async = 1
 let g:easytags_dynamic_files = 2
 let g:easytags_resolve_links = 1
 let g:easytags_suppress_ctags_warning = 1
-
-
-" General 
-
-syntax on
-
-" }
-
-" Formatting {
-
-" set nowrap " Do not wrap lines.
-
-" We do utf-8
-scriptencoding utf-8
-set encoding=utf-8
 
 " Add the virtualenv's site-packages to vim path
 if has('python')
@@ -146,12 +132,13 @@ set cindent
 set colorcolumn=81
 set diffopt+=iwhite             " Ignore whitespace changes (focus on code changes)
 set diffopt=filler              " Add vertical spaces to keep right and left aligned
+scriptencoding utf-8
 set encoding=utf-8 nobomb       " BOM often causes trouble
 set esckeys                     " Allow cursor keys in insert mode.
 set expandtab                   " Expand tabs to spaces
 set foldcolumn=4                " Column to show folds
-set foldlevel=2
-set foldlevelstart=2            " Sets `foldlevel` when editing a new buffer
+set foldlevel=10
+set foldlevelstart=10           " Sets `foldlevel` when editing a new buffer
 set foldmethod=indent           " Markers are used to specify folds.
 set formatoptions=qrn1
 set guifont=Monospace\ 9
@@ -233,9 +220,14 @@ augroup END
 set background=dark
 if has("gui_running")
   " Only use darkocean for gvim.
-  colorscheme darkocean
-  let g:colors_name="darkocean"
-  highlight Folded guibg=darkgreen guifg=grey
+  "colorscheme darkocean
+  "let g:colors_name="darkocean"
+  "highlight Folded guibg=darkgreen guifg=grey
+
+  " Try out "solarized" for a bit.  It's pretty decent at high contrast.
+  let g:solarized_contrast="high"
+  colorscheme solarized
+  set cursorline         " Looks pretty decent in solarized ^_^
 
   " Fits my MacVim perfectly at Twice.
   set columns=181
