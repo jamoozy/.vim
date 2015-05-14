@@ -3,9 +3,7 @@ filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
+call vundle#begin() " optional param for install location.
 
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
@@ -27,7 +25,7 @@ Plugin 'rizzatti/dash.vim'
 Plugin 'Ack.vim'
 Plugin 'mattn/webapi-vim'
 Plugin 'mattn/gist-vim'
-Plugin 'altercation/vim-colors-solarized'
+Plugin 'https://github.com/altercation/vim-colors-solarized.git'
 
 """"""""""""""""""""""""""""""
 if has("gui_running")
@@ -74,12 +72,12 @@ if filereadable($VIRTUAL_ENV . '/vimrc')
   source $VIRTUAL_ENV/vimrc
 endif
 
-
 let g:indentobject_meaningful_indentation = ["python", "markdown", "ocaml"]
 autocmd FileType python setlocal completeopt-=preview
 
 if &term == 'xterm' || &term == 'screen'
-	set t_Co=256            " Enable 256 colors to stop the CSApprox warning and make xterm vim shine
+	set t_Co=256    " Enable 256 colors to stop the CSApprox warning and
+                  " make xterm vim shine
 endif
 
 " CtrlP related settings
@@ -102,8 +100,11 @@ let g:DoxygenToolkit_blockHeader="-------------------------------"
 let g:DoxygenToolkit_blockFooter="---------------------------------"
 let g:DoxygenToolkit_authorName="Vinit Kumar"
 
-"Nerdtree
+" Nerdtree
 let NERDTreeIgnore = ['\.pyc$']
+
+" solarized needs more contrast!
+let g:solarized_contrast="high"
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -125,24 +126,25 @@ if v:progname =~? "evim"
 endif
 
 " General options.
-set autoindent                  " always set autoindenting on
+set autoindent                  " always set auto-indenting on.
 set autoread
 set backspace=indent,eol,start  " allow backspacing over everything in insert mode
 set cindent
 set colorcolumn=81
-set diffopt+=iwhite             " Ignore whitespace changes (focus on code changes)
-set diffopt=filler              " Add vertical spaces to keep right and left aligned
+set diffopt+=iwhite        " Ignore whitespace changes (focus on code changes).
+set diffopt=filler         " Add vertical spaces to keep right and left aligned.
 scriptencoding utf-8
-set encoding=utf-8 nobomb       " BOM often causes trouble
-set esckeys                     " Allow cursor keys in insert mode.
-set expandtab                   " Expand tabs to spaces
-set foldcolumn=4                " Column to show folds
-set foldlevel=10
-set foldlevelstart=10           " Sets `foldlevel` when editing a new buffer
-set foldmethod=indent           " Markers are used to specify folds.
+set encoding=utf-8 nobomb  " BOM often causes trouble?
+set esckeys                " Allow cursor keys in insert mode.
+set expandtab              " Expand tabs to spaces
+set foldcolumn=0           " Column to show folds (I kinda don't like it)
+set foldlevel=20
+set foldlevelstart=20      " Sets `foldlevel` when editing a new buffer
+set foldmethod=indent      " Markers are used to specify folds.
 set formatoptions=qrn1
 set guifont=Monospace\ 9
-set hidden              " When a buffer is brought to foreground, remember undo history and marks.
+set hidden              " When a buffer is brought to foreground, remember undo
+                        " history and marks.
 set history=500         " keep 500 lines of command line history
 set laststatus=2        " Always show status line
 set linebreak           " So that wrapping breaks at words, not just 'wherever'
@@ -160,15 +162,17 @@ set shortmess=I         " Don't show the intro message when starting vim.
 set showcmd             " display incomplete commands
 set showmode            " Show the current mode.
 set showtabline=2       " Always show tab bar.
-set smarttab            " At start of line, <Tab> inserts shiftwidth spaces, <Bs> deletes shiftwidth spaces.
+set smarttab            " At start of line, <Tab> inserts shiftwidth spaces,
+                        " <Bs> deletes shiftwidth spaces.
 set softtabstop=2
 set spell spelllang=en_us,de
 set tabstop=2
-set textwidth=85
-set title                   " Show the filename in the window titlebar.
-set ttyfast                 " Send more characters at a given time.
-set wildchar=<TAB>          " Character for CLI expansion (TAB-completion).
-set wildmenu                " Hitting TAB in command mode will show possible completions above command line.
+set textwidth=80
+set title           " Show the filename in the window titlebar.
+set ttyfast         " Send more characters at a given time.
+set wildchar=<TAB>  " Character for CLI expansion (TAB-completion).
+set wildmenu        " Hitting TAB in command mode will show possible completions
+                    " above command line.
 set wrap
 syntax on
 
@@ -179,13 +183,15 @@ set hlsearch                    " Highlight search terms
 set incsearch                   " Find as you type search
 set linespace=0                 " No extra spaces between rows
 set list
-set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
+set listchars=tab:›\ ,trail:•,extends:#,nbsp:.    " Highlight problematic
+                                                  " whitespace
 set scrolljump=5                " Lines to scroll when cursor leaves screen
 set scrolloff=3                 " Minimum lines to keep above and below cursor
 set showmatch                   " Show matching brackets/parenthesis
 set smartcase                   " Case sensitive when uc present
 set whichwrap=b,s,h,l,<,>,[,]   " Backspace and cursor keys wrap too
-set wildmode=list:longest,full  " Command <Tab> completion, list matches, then longest common part, then all.
+set wildmode=list:longest,full  " Command <Tab> completion, list matches, then
+                                " longest common part, then all.
 set winminheight=0              " Windows can be 0 line high
 
 " disable ugly gtk stuff
@@ -230,8 +236,8 @@ if has("gui_running")
   set cursorline         " Looks pretty decent in solarized ^_^
 
   " Fits my MacVim perfectly at Twice.
-  set columns=181
-  set lines=88
+  "set columns=181
+  "set lines=88
 else
   " Only enable highlighted cursor line for terminal vim.
   set cursorline
@@ -259,6 +265,9 @@ au BufRead,BufNewFile *.txt  set tw=0 cc=0
 
 au BufRead,BufNewFile *.jqt    set ft=qml tw=0 cc=0
 au BufRead,BufNewFile *.htmlmk set ft=mako
+
+" WTF python ...
+au BufRead,BufNewFile *.py set ts=2 sw=2 sts=2
 
 
 " 'Highlight' text in light gray when past tw.
