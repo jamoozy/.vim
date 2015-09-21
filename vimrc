@@ -130,7 +130,7 @@ set autoindent                  " always set auto-indenting on.
 set autoread
 set backspace=indent,eol,start  " allow backspacing over everything in insert mode
 set cindent
-set colorcolumn=81
+set colorcolumn=+1
 set diffopt+=iwhite        " Ignore whitespace changes (focus on code changes).
 set diffopt=filler         " Add vertical spaces to keep right and left aligned.
 scriptencoding utf-8
@@ -226,14 +226,10 @@ augroup END
 set background=dark
 if has("gui_running")
   " Only use darkocean for gvim.
-  "colorscheme darkocean
-  "let g:colors_name="darkocean"
+  colorscheme darkocean
+  let g:colors_name="darkocean"
   "highlight Folded guibg=darkgreen guifg=grey
-
-  " Try out "solarized" for a bit.  It's pretty decent at high contrast.
-  let g:solarized_contrast="high"
-  colorscheme solarized
-  set cursorline         " Looks pretty decent in solarized ^_^
+  "let g:solarized_contrast="high"
 
   " Fits my MacVim perfectly at Twice.
   "set columns=181
