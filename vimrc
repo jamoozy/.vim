@@ -226,14 +226,10 @@ augroup END
 set background=dark
 if has("gui_running")
   " Only use darkocean for gvim.
-  "colorscheme darkocean
-  "let g:colors_name="darkocean"
+  colorscheme darkocean
+  let g:colors_name="darkocean"
   "highlight Folded guibg=darkgreen guifg=grey
-
-  " Try out "solarized" for a bit.  It's pretty decent at high contrast.
-  let g:solarized_contrast="high"
-  colorscheme solarized
-  set cursorline         " Looks pretty decent in solarized ^_^
+  "let g:solarized_contrast="high"
 
   " Fits my MacVim perfectly at Twice.
   "set columns=181
@@ -248,23 +244,23 @@ endif
 au BufRead,BufNewFile *.lol  set ft=lolcode
 au BufRead,BufNewFile *.lcm  set ft=c
 au BufRead,BufNewFile *.ss   set ft=ss
+au BufRead,BufNewFile *.go   set ft=go
+au BufRead,BufNewFile *.dart set ft=dart
+au BufRead,BufNewFile *.md   set ft=markdown
 
 au BufRead,BufNewFile *.tex  set ft=tex tw=0 cc=0
 au BufRead,BufNewFile *.bib  set nospell tw=0 cc=0
 
+" Storyboard Programming Tool.
 au BufRead,BufNewFile *.sb   set ft=c
 
 au BufRead,BufNewFile *.gp   set ft=gnuplot
 au BufRead,BufNewFile *.dat  set ts=8 sw=8 noet tw=0 cc=0
 
 au BufRead,BufNewFile *.go   set ft=go tw=100
-au BufRead,BufNewFile *.dart set ft=dart
 
 au BufRead,BufNewFile *.log  set nospell
 au BufRead,BufNewFile *.txt  set tw=0 cc=0
-
-au BufRead,BufNewFile *.jqt    set ft=qml tw=0 cc=0
-au BufRead,BufNewFile *.htmlmk set ft=mako
 
 " WTF python ...
 au BufRead,BufNewFile *.py set ts=2 sw=2 sts=2
