@@ -130,7 +130,7 @@ set autoindent                  " always set auto-indenting on.
 set autoread
 set backspace=indent,eol,start  " allow backspacing over everything in insert mode
 set cindent
-set colorcolumn=81
+set colorcolumn=+1
 set diffopt+=iwhite        " Ignore whitespace changes (focus on code changes).
 set diffopt=filler         " Add vertical spaces to keep right and left aligned.
 scriptencoding utf-8
@@ -257,7 +257,7 @@ au BufRead,BufNewFile *.sb   set ft=c
 au BufRead,BufNewFile *.gp   set ft=gnuplot
 au BufRead,BufNewFile *.dat  set ts=8 sw=8 noet tw=0 cc=0
 
-au BufRead,BufNewFile *.go   set ft=go noet
+au BufRead,BufNewFile *.go   set ft=go tw=100
 au BufRead,BufNewFile *.dart set ft=dart
 
 au BufRead,BufNewFile *.log  set nospell
