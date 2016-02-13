@@ -26,6 +26,7 @@ Plugin 'Ack.vim'
 Plugin 'mattn/webapi-vim'
 Plugin 'mattn/gist-vim'
 Plugin 'https://github.com/altercation/vim-colors-solarized.git'
+Plugin 'fatih/vim-go'
 
 """"""""""""""""""""""""""""""
 if has("gui_running")
