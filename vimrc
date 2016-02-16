@@ -107,6 +107,9 @@ let NERDTreeIgnore = ['\.pyc$']
 " solarized needs more contrast!
 let g:solarized_contrast="high"
 
+" vim-go related settings
+let g:go_fmt_autosave=0
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -262,7 +265,7 @@ au BufRead,BufNewFile *.sb     set ft=c
 au BufRead,BufNewFile *.gp     set ft=gnuplot
 au BufRead,BufNewFile *.dat    set ts=8 sw=8 noet tw=0 cc=0
 
-au BufRead,BufNewFile *.go   set ft=go tw=100
+au BufRead,BufNewFile *.go   set et ft=go tw=100
 
 au BufRead,BufNewFile *.log  set nospell
 au BufRead,BufNewFile *.txt  set tw=0 cc=0
