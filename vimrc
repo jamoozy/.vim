@@ -9,24 +9,18 @@ call vundle#begin() " optional param for install location.
 Plugin 'gmarik/Vundle.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'scrooloose/nerdtree'
-Plugin 'git://git.wincent.com/command-t.git'
 Plugin 'kien/ctrlp.vim'
-Plugin 'tmhedberg/SimpylFold'
-Plugin 'bling/vim-airline'
-Plugin 'chriskempson/base16-vim'
-Plugin 'sjl/badwolf'
-Plugin 'tpope/vim-sensible'  " ?
-Plugin 'xolox/vim-misc'  " ?
-Plugin 'xolox/vim-easytags'
-Plugin 'majutsushi/tagbar'
-Plugin 'vinitkumar/vim-tomorrow-theme'
-Plugin 'mrtazz/DoxygenToolkit.vim'
-Plugin 'rizzatti/dash.vim'
-Plugin 'Ack.vim'
-Plugin 'mattn/webapi-vim'
-Plugin 'mattn/gist-vim'
-Plugin 'https://github.com/altercation/vim-colors-solarized.git'
+Plugin 'vim-airline/vim-airline'
+Plugin 'tpope/vim-sensible'  " simple defaults
+"Plugin 'xolox/vim-misc'      " lib for below
+"Plugin 'xolox/vim-easytags'  " Can build tags somehow ...
+Plugin 'altercation/vim-colors-solarized'
 Plugin 'fatih/vim-go'
+Plugin 'derekwyatt/vim-scala'
+
+" vim-go
+let g:go_metalinter_autosave_enabled = ['vet']
+let g:go_template_autocreate         = 0
 
 """"""""""""""""""""""""""""""
 if has("gui_running")
@@ -86,43 +80,16 @@ let g:ctrlp_working_path_mode = ''
 set wildignore=.svn,CVS,.git,.hg,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.jpg,*.png,*.xpm,*.gif,.DS_Store,*.aux,*.out,*.toc,tmp,*.scssc,*.pyc
 set wildmenu
 
-" Gist related settings
-let g:gist_detect_filetype = 1
-let g:gist_open_browser_after_post = 1
-let g:gist_clip_command = 'pbcopy'
-let g:gist_post_private = 1
-let g:gist_get_multiplefile = 1
-
-" Configuration
-let g:DoxygenToolkit_briefTag_pre="@Synopsis  "
-let g:DoxygenToolkit_paramTag_pre="@Param "
-let g:DoxygenToolkit_returnTag="@Returns   "
-let g:DoxygenToolkit_blockHeader="-------------------------------"
-let g:DoxygenToolkit_blockFooter="---------------------------------"
-let g:DoxygenToolkit_authorName="Vinit Kumar"
-
 " Nerdtree
 let NERDTreeIgnore = ['\.pyc$']
 
 " solarized needs more contrast!
 let g:solarized_contrast="high"
 
-" vim-go related settings
-let g:go_fmt_autosave=0
-
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
-" An example for a vimrc file.
-"
-" Maintainer:  Bram Moolenaar <Bram@vim.org>
-" Last change:  2002 Sep 19
-"
-" To use it, copy it to
-"     for Unix and OS/2:  ~/.vimrc
-"        for Amiga:  s:.vimrc
-"  for MS-DOS and Win32:  $VIM\_vimrc
-"      for OpenVMS:  sys$login:.vimrc
+
 
 " When started as "evim", evim.vim will already have done these settings.
 if v:progname =~? "evim"
@@ -142,6 +109,7 @@ set encoding=utf-8 nobomb  " BOM often causes trouble?
 set esckeys                " Allow cursor keys in insert mode.
 set expandtab              " Expand tabs to spaces
 set foldcolumn=0           " Column to show folds (I kinda don't like it)
+set foldenable                  " Auto fold code
 set foldlevel=20
 set foldlevelstart=20      " Sets `foldlevel` when editing a new buffer
 set foldmethod=indent      " Markers are used to specify folds.
@@ -150,6 +118,7 @@ set guifont=Monospace\ 9
 set hidden              " When a buffer is brought to foreground, remember undo
                         " history and marks.
 set history=500         " keep 500 lines of command line history
+set hlsearch                    " Highlight search terms
 set laststatus=2        " Always show status line
 set linebreak           " So that wrapping breaks at words, not just 'wherever'
 set magic               " Enable extended regexes.
@@ -181,9 +150,6 @@ set wrap
 syntax on
 
 " Whitespace
-set backspace=indent,eol,start  " Backspace for dummies
-set foldenable                  " Auto fold code
-set hlsearch                    " Highlight search terms
 set incsearch                   " Find as you type search
 set linespace=0                 " No extra spaces between rows
 set list
@@ -234,15 +200,6 @@ if has("gui_running")
   let g:colors_name="darkocean"
 
   highlight Folded guibg=darkgreen guifg=grey
-
-  " Try out "solarized" for a bit.  It's pretty decent at high contrast.
-  "let g:solarized_contrast="high"
-  "colorscheme solarized
-  "set cursorline         " Looks pretty decent in solarized ^_^
-
-  " Fits my MacVim perfectly at Twice.
-  "set columns=181
-  "set lines=88
 else
   " Only enable highlighted cursor line for terminal vim.
   set cursorline
@@ -252,7 +209,6 @@ endif
 " Various "specialty" file types.
 au BufRead,BufNewFile *.bib    set nospell tw=0 cc=0
 au BufRead,BufNewFile *.dart   set ft=dart
-au BufRead,BufNewFile *.go     set ft=go tw=100
 au BufRead,BufNewFile *.lcm    set ft=c
 au BufRead,BufNewFile *.lol    set ft=lolcode
 au BufRead,BufNewFile *.marko  set ft=xml
@@ -265,10 +221,13 @@ au BufRead,BufNewFile *.sb     set ft=c
 au BufRead,BufNewFile *.gp     set ft=gnuplot
 au BufRead,BufNewFile *.dat    set ts=8 sw=8 noet tw=0 cc=0
 
-au BufRead,BufNewFile *.go   set et ft=go tw=100
-
+au BufRead,BufNewFile *.go   set ft=go tw=0
 au BufRead,BufNewFile *.log  set nospell
 au BufRead,BufNewFile *.txt  set tw=0 cc=0
+
+au BufRead,BufNewFile *.yaml set tw=0 nospell
+
+au BufRead,BufNewFile Dockerfile set tw=0 nospell
 
 " WTF python ...
 au BufRead,BufNewFile *.py set ts=2 sw=2 sts=2
