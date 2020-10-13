@@ -1,58 +1,5 @@
 set nocompatible              " be iMproved, required
-filetype off                  " required
-
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin() " optional param for install location.
-
-" let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
-Plugin 'tpope/vim-fugitive'
-Plugin 'scrooloose/nerdtree'
-Plugin 'git://git.wincent.com/command-t.git'
-Plugin 'kien/ctrlp.vim'
-Plugin 'tmhedberg/SimpylFold'
-Plugin 'bling/vim-airline'
-Plugin 'chriskempson/base16-vim'
-Plugin 'sjl/badwolf'
-Plugin 'tpope/vim-sensible'  " ?
-Plugin 'xolox/vim-misc'  " ?
-Plugin 'xolox/vim-easytags'
-Plugin 'majutsushi/tagbar'
-Plugin 'vinitkumar/vim-tomorrow-theme'
-Plugin 'mrtazz/DoxygenToolkit.vim'
-Plugin 'rizzatti/dash.vim'
-Plugin 'Ack.vim'
-Plugin 'mattn/webapi-vim'
-Plugin 'mattn/gist-vim'
-Plugin 'https://github.com/altercation/vim-colors-solarized.git'
-Plugin 'fatih/vim-go'
-
-""""""""""""""""""""""""""""""
-if has("gui_running")
-  " vim-powerline symbols
-  let g:airline_theme                        = 'badwolf'
-  let g:airline#extensions#branch#enabled    = 1
-  let g:airline#extensions#syntastic#enabled = 1
-
-  " vim-powerline symbols
-  let g:airline_left_sep          = '['
-  let g:airline_left_alt_sep      = '['
-  let g:airline_right_sep         = ']'
-  let g:airline_right_alt_sep     = ']'
-  let g:airline_branch_prefix     = '+'
-  let g:airline_readonly_symbol   = '!'
-  let g:airline_linecolumn_prefix = '-'
-endif
-
-"tagbar related settings
-set tags=./tags;,~/.vimtags
-+" Sensible defaults
-let g:easytags_events = ['BufReadPost', 'BufWritePost']
-let g:easytags_async = 1
-let g:easytags_dynamic_files = 2
-let g:easytags_resolve_links = 1
-let g:easytags_suppress_ctags_warning = 1
+"filetype off                  " required
 
 " Add the virtualenv's site-packages to vim path
 if has('python')
@@ -76,40 +23,17 @@ endif
 let g:indentobject_meaningful_indentation = ["python", "markdown", "ocaml"]
 autocmd FileType python setlocal completeopt-=preview
 
-if &term == 'xterm' || &term == 'screen'
+if &term == 'xterm' || &term == 'screen' || &term == 'tmux'
 	set t_Co=256    " Enable 256 colors to stop the CSApprox warning and
                   " make xterm vim shine
 endif
 
-" CtrlP related settings
-let g:ctrlp_working_path_mode = ''
-set wildignore=.svn,CVS,.git,.hg,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.jpg,*.png,*.xpm,*.gif,.DS_Store,*.aux,*.out,*.toc,tmp,*.scssc,*.pyc
-set wildmenu
-
-" Gist related settings
-let g:gist_detect_filetype = 1
-let g:gist_open_browser_after_post = 1
-let g:gist_clip_command = 'pbcopy'
-let g:gist_post_private = 1
-let g:gist_get_multiplefile = 1
-
-" Configuration
-let g:DoxygenToolkit_briefTag_pre="@Synopsis  "
-let g:DoxygenToolkit_paramTag_pre="@Param "
-let g:DoxygenToolkit_returnTag="@Returns   "
-let g:DoxygenToolkit_blockHeader="-------------------------------"
-let g:DoxygenToolkit_blockFooter="---------------------------------"
-let g:DoxygenToolkit_authorName="Vinit Kumar"
-
-" Nerdtree
-let NERDTreeIgnore = ['\.pyc$']
-
 " solarized needs more contrast!
 let g:solarized_contrast="high"
 
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
+
+filetype plugin indent on " required
+
 " An example for a vimrc file.
 "
 " Maintainer:  Bram Moolenaar <Bram@vim.org>
@@ -195,6 +119,8 @@ set wildmode=list:longest,full  " Command <Tab> completion, list matches, then
                                 " longest common part, then all.
 set winminheight=0              " Windows can be 0 line high
 
+set number relativenumber
+
 " disable ugly gtk stuff
 set guioptions-=M
 set guioptions-=T
@@ -257,18 +183,23 @@ au BufRead,BufNewFile *.md     set ft=markdown tw=0
 au BufRead,BufNewFile *.ss     set ft=ss
 au BufRead,BufNewFile *.tex    set ft=tex tw=0
 
+" Web Dev.
+au BufRead,BufNewFile *.js     set ft=javascript tw=100
+au BufRead,BufNewFile *.html   set ft=html tw=0
+au BufRead,BufNewFile *.erb    set ft=mason tw=0
+
 au BufRead,BufNewFile *.sb     set ft=c
 
+au BufRead,BufNewFile *.go     set ft=go tw=100
 au BufRead,BufNewFile *.gp     set ft=gnuplot
 au BufRead,BufNewFile *.dat    set ts=8 sw=8 noet tw=0 cc=0
 
-au BufRead,BufNewFile *.go   set ft=go tw=100
+au BufRead,BufNewFile *.dart set ft=dart
 
 au BufRead,BufNewFile *.log  set nospell
 au BufRead,BufNewFile *.txt  set tw=0 cc=0
 
-" WTF python ...
-au BufRead,BufNewFile *.py set ts=2 sw=2 sts=2
+au BufRead,BufNewFile *.vs,*.fs set ft=glsl
 
 
 " 'Highlight' text in light gray when past tw.
@@ -278,3 +209,8 @@ augroup vimrc_autocmds
   autocmd BufEnter .*\.\(tex\)\@! highlight OverLength ctermbg=darkgrey guibg=#592929
   autocmd BufEnter .*\.\(tex\)\@! match OverLength /\%81v.*/
 augroup END
+
+" OpenCog-specific syntax
+if match(expand("%:p:h"), "/opencog") >= 0 && &filetype == "cpp"
+  autocmd BufNewFile,BufReadPost * set ts=4 sw=4 tw=80 ff=unix cindent expandtab
+endif
