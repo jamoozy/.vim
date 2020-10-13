@@ -1,5 +1,6 @@
 set nocompatible              " be iMproved, required
-"filetype off                  " required
+
+filetype off                  " required
 
 " Add the virtualenv's site-packages to vim path
 if has('python')
@@ -27,6 +28,7 @@ if &term == 'xterm' || &term == 'screen' || &term == 'tmux'
 	set t_Co=256    " Enable 256 colors to stop the CSApprox warning and
                   " make xterm vim shine
 endif
+
 
 " solarized needs more contrast!
 let g:solarized_contrast="high"
@@ -63,6 +65,7 @@ set encoding=utf-8 nobomb  " BOM often causes trouble?
 set esckeys                " Allow cursor keys in insert mode.
 set expandtab              " Expand tabs to spaces
 set foldcolumn=0           " Column to show folds (I kinda don't like it)
+set foldenable                  " Auto fold code
 set foldlevel=20
 set foldlevelstart=20      " Sets `foldlevel` when editing a new buffer
 set foldmethod=indent      " Markers are used to specify folds.
@@ -71,6 +74,7 @@ set guifont=Monospace\ 9
 set hidden              " When a buffer is brought to foreground, remember undo
                         " history and marks.
 set history=500         " keep 500 lines of command line history
+set hlsearch                    " Highlight search terms
 set laststatus=2        " Always show status line
 set linebreak           " So that wrapping breaks at words, not just 'wherever'
 set magic               " Enable extended regexes.
@@ -102,9 +106,6 @@ set wrap
 syntax on
 
 " Whitespace
-set backspace=indent,eol,start  " Backspace for dummies
-set foldenable                  " Auto fold code
-set hlsearch                    " Highlight search terms
 set incsearch                   " Find as you type search
 set linespace=0                 " No extra spaces between rows
 set list
@@ -157,15 +158,6 @@ if has("gui_running")
   let g:colors_name="darkocean"
 
   highlight Folded guibg=darkgreen guifg=grey
-
-  " Try out "solarized" for a bit.  It's pretty decent at high contrast.
-  "let g:solarized_contrast="high"
-  "colorscheme solarized
-  "set cursorline         " Looks pretty decent in solarized ^_^
-
-  " Fits my MacVim perfectly at Twice.
-  "set columns=181
-  "set lines=88
 else
   " Only enable highlighted cursor line for terminal vim.
   set cursorline
@@ -175,7 +167,6 @@ endif
 " Various "specialty" file types.
 au BufRead,BufNewFile *.bib    set nospell tw=0 cc=0
 au BufRead,BufNewFile *.dart   set ft=dart
-au BufRead,BufNewFile *.go     set ft=go tw=100
 au BufRead,BufNewFile *.lcm    set ft=c
 au BufRead,BufNewFile *.lol    set ft=lolcode
 au BufRead,BufNewFile *.marko  set ft=xml
@@ -200,6 +191,16 @@ au BufRead,BufNewFile *.log  set nospell
 au BufRead,BufNewFile *.txt  set tw=0 cc=0
 
 au BufRead,BufNewFile *.vs,*.fs set ft=glsl
+
+au BufRead,BufNewFile *.log  set nospell
+au BufRead,BufNewFile *.txt  set tw=0 cc=0
+
+au BufRead,BufNewFile *.yaml set tw=0 nospell
+
+au BufRead,BufNewFile Dockerfile set tw=0 nospell
+
+" WTF python ...
+au BufRead,BufNewFile *.py set ts=2 sw=2 sts=2
 
 
 " 'Highlight' text in light gray when past tw.
